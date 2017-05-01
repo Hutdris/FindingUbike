@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+
 import requests
+import os
 
 from .models import Greeting
 
@@ -8,9 +10,18 @@ from .models import Greeting
 def index(request):
     # #return HttpResponse('Hello from Python!')
     # return render(request, 'index.html')
-    r = requests.get('http://httpbin.org/status/418')
-    print(r.text)
-    return HttpResponse("<pre>{}<pre>".format(r.text))
+
+    url_msg = str(request.__dict__)
+    print(url_msg)
+    print(request)
+    hi = "hi"
+    lat, lng = 25.034415, 121.568924
+    googlemap_api = os.environ.get("GOOGLEMAP_API")
+    googlemap_url = "https://maps.googleapis.com/maps/api/geocode/json?latlng={_lat},{_lng}&key={api}".\
+        format(_lat=lat, _lng=lng, api=googlemap_api)
+    #r = requests.get(googlemap_url)
+    return HttpResponse("{}".format(url_msg))
+    # return HttpResponse("<pre>{}<pre>".format(r.text))
 
 
 
