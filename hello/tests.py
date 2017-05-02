@@ -57,23 +57,11 @@ def testJson(lat, lng):
              } )
 
 
+lat, lng = 25.034, 121.568
+test_url = "https://p-demo.herokuapp.com/v1/ubike-station/taipei/?lat={}&lng={}".format(lat, lng)
+r = requests.get(test_url)
+print(r)
+print(r.text)
 
 
-def testGoogle(url):
-    r = requests.get(url)
-    taipei = re.compile("Taipei City")
-    for i in r.text.split('"'):
-        if taipei.match(i):
-            print('IN')
-            return
-    print("OUT")
-
-loc1 = [100, 200]
-loc2 = [0, 0]
-print(get_distance(loc1, loc2))
-google_url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=25.034542,121.568946&key=AIzaSyCMIdTtbpDsl4VDMBRmEO4QgPBRpLB5n_c"
-u = "http://data.taipei/opendata/datalist/apiAccess?scope=resourceAquire&rid=ddb80380-f1b3-4f8e-8016-7ed9cba571d5"
-j = (testJson(25.082, 121.57))
-print(j)
-print(json.loads(j))
 

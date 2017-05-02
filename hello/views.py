@@ -10,7 +10,7 @@ import gzip
 
 from .models import Greeting
 
-#dirty function
+#dirty functions
 def in_taipei(lat, lng):
     googlemap_key = os.environ.get("GOOGLEMAP_API")
     googlemap_url = \
@@ -62,20 +62,8 @@ def get_result(lat, lng):
     # keep the neras
 # Create your views here.
 def index(request):
-    # #return HttpResponse('Hello from Python!')
-    # return render(request, 'index.html')
 
-    url_msg = str(request.__dict__)
-    print(url_msg)
-    print(request)
-    hi = "hi"
-    lat, lng = 25.034415, 121.568924
-    googlemap_api = os.environ.get("GOOGLEMAP_API")
-    googlemap_url = "https://maps.googleapis.com/maps/api/geocode/json?latlng={_lat},{_lng}&key={api}".\
-        format(_lat=lat, _lng=lng, api=googlemap_api)
-    #r = requests.get(googlemap_url)
-    return HttpResponse("{}".format(url_msg))
-    # return HttpResponse("<pre>{}<pre>".format(r.text))
+    return JsonResponse({"code": -1, "result": []})
 
 
 
@@ -92,7 +80,7 @@ def search(request):
 
     if not all(tag in request.GET for tag in ("lat", "lng")):
         print("invalid url")
-        return JsonResponse({"code": -2, "result": []})
+        return JsonResponse({"code": -1, "result": []})
 
     try:
         lat = float(request.GET["lat"])
